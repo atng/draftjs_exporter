@@ -83,7 +83,7 @@ class WrapperState(object):
     It sets elements with the right tag, text content, and props.
     It adds a wrapper element around elements, if required.
     """
-    __slots__ = ('block_options', 'blocks', 'stack')
+    __slots__ = ('block_options', 'blocks', 'stack', 'options_callback')
 
     def __init__(self, block_options: OptionsMap, blocks: Sequence[Block], options_callback=None) -> None:
         self.block_options = block_options
