@@ -99,7 +99,7 @@ class WrapperState(object):
         depth = block['depth'] if 'depth' in block else 0
         options = Options.get(self.block_options, type_, BLOCK_TYPES.FALLBACK)
         if self.options_callback and callable(self.options_callback):
-            options = self.options_callback(options)
+            options = self.options_callback(options, block)
         props = dict(options.props)
         props['block'] = block
         props['blocks'] = self.blocks
