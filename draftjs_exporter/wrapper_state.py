@@ -97,6 +97,8 @@ class WrapperState(object):
         type_ = block['type'] if 'type' in block else 'unstyled'
         depth = block['depth'] if 'depth' in block else 0
         options = Options.get(self.block_options, type_, BLOCK_TYPES.FALLBACK)
+        if "options_callback" in self.block_options and callable(self.block_options["options_callback"]):
+            options = self.block_options["options_callback"](options)
         props = dict(options.props)
         props['block'] = block
         props['blocks'] = self.blocks
