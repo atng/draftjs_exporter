@@ -12,15 +12,16 @@ class Options(object):
     """
     Facilitates querying configuration from a config map.
     """
-    __slots__ = ('type', 'element', 'props', 'wrapper', 'wrapper_props')
+    __slots__ = ('type', 'element', 'props', 'wrapper', 'wrapper_props', "options_callback")
 
 
-    def __init__(self, type_: str, element: RenderableType, props: Optional[Props] = None, wrapper: RenderableType = None, wrapper_props: Optional[Props] = None) -> None:
+    def __init__(self, type_: str, element: RenderableType, props: Optional[Props] = None, wrapper: RenderableType = None, wrapper_props: Optional[Props] = None, options_callback = None) -> None:
         self.type = type_
         self.element = element
         self.props = props if props else {}
         self.wrapper = wrapper
         self.wrapper_props = wrapper_props
+        self.options_callback = options_callback
 
     def __str__(self) -> str:
         return '<Options {0} {1} {2} {3} {4}>'.format(self.type, self.element, self.props, self.wrapper, self.wrapper_props)
