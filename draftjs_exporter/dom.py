@@ -61,11 +61,18 @@ class DOM(object):
 
         # The children prop is the first child if there is only one.
         props['children'] = children[0] if len(children) == 1 else children
-
+        
+        # Check if it is a function component, via def or lambda.
         if callable(type_):
-            # Function component, via def or lambda.
-            elt = type_(props)
+            result = type_(props)
+            
+        if not isInstance(result, dict):
+            # if result is not a dictionary, then it should be an element
+            elt = result
         else:
+            # if result is a dictionary, then use it as props
+            props = result
+            
             # Raw tag, as a string.
             attributes = {}
 
