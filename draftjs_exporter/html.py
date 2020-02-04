@@ -30,6 +30,7 @@ class HTML(object):
         self.entity_options = Options.map_entities(config.get('entity_decorators', {}))
         self.block_options = Options.map_blocks(config.get('block_map', BLOCK_MAP))
         self.style_options = Options.map_styles(config.get('style_map', STYLE_MAP))
+        self.options_callback = config.get('options_callback', None)
 
         DOM.use(config.get('engine', DOM.STRING))
 
@@ -41,7 +42,7 @@ class HTML(object):
             content_state = {}
 
         blocks = content_state.get('blocks', [])
-        wrapper_state = WrapperState(self.block_options, blocks)
+        wrapper_state = WrapperState(self.block_options, blocks, options_callback=self.options_callback)
         document = DOM.create_element()
         entity_map = content_state.get('entityMap', {})
         min_depth = 0
