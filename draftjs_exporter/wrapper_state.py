@@ -85,9 +85,10 @@ class WrapperState(object):
     """
     __slots__ = ('block_options', 'blocks', 'stack')
 
-    def __init__(self, block_options: OptionsMap, blocks: Sequence[Block]) -> None:
+    def __init__(self, block_options: OptionsMap, blocks: Sequence[Block], options_callback=None) -> None:
         self.block_options = block_options
         self.blocks = blocks
+        self.options_callback=options_callback
         self.stack = WrapperStack()
 
     def __str__(self) -> str:
@@ -97,8 +98,8 @@ class WrapperState(object):
         type_ = block['type'] if 'type' in block else 'unstyled'
         depth = block['depth'] if 'depth' in block else 0
         options = Options.get(self.block_options, type_, BLOCK_TYPES.FALLBACK)
-        if "options_callback" in self.block_options and callable(self.block_options["options_callback"]):
-            options = self.block_options["options_callback"](options)
+        if self.options_callback and callable(self.options_callback):
+            options = self.options_callback(options)
         props = dict(options.props)
         props['block'] = block
         props['blocks'] = self.blocks
