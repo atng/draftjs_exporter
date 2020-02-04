@@ -72,7 +72,7 @@ class DOM(object):
         else:
             result = props
             
-        if not isInstance(result, dict):
+        if not isinstance(result, dict):
             # if result is not a dictionary, then it should be an element
             elt = result
         else:
