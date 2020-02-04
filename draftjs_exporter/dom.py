@@ -62,9 +62,15 @@ class DOM(object):
         # The children prop is the first child if there is only one.
         props['children'] = children[0] if len(children) == 1 else children
         
-        # Check if it is a function component, via def or lambda.
+        # including a callback to change props based on block data
+        if "props_callback" in props and callable(props["props_callback"]):
+            props = props["props_callback"](props)
+        
+        # Check if it is a function component, via def or lambda, and allow for it to return props and element
         if callable(type_):
             result = type_(props)
+        else:
+            result = props
             
         if not isInstance(result, dict):
             # if result is not a dictionary, then it should be an element
