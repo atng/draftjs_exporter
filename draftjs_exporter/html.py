@@ -18,7 +18,7 @@ class HTML(object):
     Entry point of the exporter. Combines entity, wrapper and style state
     to generate the right HTML nodes.
     """
-    __slots__ = ('composite_decorators', 'has_decorators', 'entity_options', 'block_options', 'style_options')
+    __slots__ = ('composite_decorators', 'has_decorators', 'entity_options', 'block_options', 'style_options', 'options_callback')
 
     def __init__(self, config: Optional[Config] = None) -> None:
         if config is None:
